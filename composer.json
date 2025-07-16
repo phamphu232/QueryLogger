@@ -1,0 +1,30 @@
+{
+    "name": "phamphu232/query-logger",
+    "description": "Laravel package to log all committed SQL queries.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pham Phu",
+            "email": "phamphu232@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "illuminate/support": "^8.0|^9.0|^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "PhamPhu232\\QueryLogger\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "PhamPhu232\\QueryLogger\\QueryLoggerServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

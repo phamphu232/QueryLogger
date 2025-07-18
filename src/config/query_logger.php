@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'enabled' => true,
+
     'connection' => '',
 
     'cron_import_query_logs' => '*/5 * * * *',
@@ -13,11 +15,9 @@ return [
 
     'hostname' => gethostname(),
 
-    'is_enable_query_logger' => true,
+    'log_select_queries' => false,
 
-    'is_log_select_query' => false,
-
-    'is_save_uncommitted_query' => false,
+    'keep_uncommitted_queries' => false,
 
     'log_format' => env('QUERY_LOG_FORMAT', 'tsv'), // Support format: tsv, csv
 

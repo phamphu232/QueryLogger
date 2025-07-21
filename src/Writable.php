@@ -10,26 +10,6 @@ class Writable
     {
         $queryLoggerConfig = config('query_logger');
 
-        if (
-            stripos(strtolower(trim($query->sql)), 'select') === 0
-            && !$queryLoggerConfig['is_log_select_query']
-        ) {
-            return '';
-        }
-
-        $excludedTables = array_merge($queryLoggerConfig['exclude_tables'], [$queryLoggerConfig['table_name']]);
-
-        // Extract table names from SQL using regex
-        preg_match_all('/\b(from|into|update|join|replace\s+into|delete\s+from)\s+([`"]?)([a-zA-Z0-9_]+)\2/i', $query->sql, $matches);
-        $tablesInQuery = array_map('strtolower', $matches[3]);
-
-        // If any excluded table is used in the query, skip it
-        foreach ($tablesInQuery as $table) {
-            if (in_array($table, $excludedTables)) {
-                return '';
-            }
-        }
-
         $micro = microtime(true);
         $time = floor($micro);
         $datetime = date('Y-m-d H:i:s', $time);
@@ -107,7 +87,9 @@ class Writable
             }, array_values($record));
         }
 
-        $lines = array_map(fn ($row) => implode($delimiter, $row), $rows);
+        $lines = array_map(function ($row) use ($delimiter) {
+            return implode($delimiter, $row);
+        }, $rows);
 
         return implode("\n", $lines) . "\n";
     }

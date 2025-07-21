@@ -11,7 +11,6 @@ composer require phamphu232/query-logger
 
 ```
 php artisan vendor:publish --provider="PhamPhu232\QueryLogger\QueryLoggerServiceProvider"
-
 ```
 
 ## 3. Configure the package
@@ -24,5 +23,13 @@ config/query_logger.php
 
 ```
 php artisan migrate
+```
 
+## 5. Add PDO::MYSQL_ATTR_LOCAL_INFILE => true to database connection
+
+```
+'options' => extension_loaded('pdo_mysql') ? array_filter([
+    PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+    PDO::MYSQL_ATTR_LOCAL_INFILE => true,
+]) : [],
 ```
